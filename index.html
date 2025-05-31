@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Editor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .toolbar button, .toolbar select, .toolbar input[type="color"] {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    #editor {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Online Text Editor</h2>
+
+  <div class="toolbar">
+    <button onclick="formatText('bold')"><b>B</b></button>
+    <button onclick="formatText('underline')"><u>U</u></button>
+    <button onclick="formatText('italic')"><i>I</i></button>
+
+    <input type="color" onchange="changeColor(this.value)" title="Text Color"/>
+
+    <select onchange="alignText(this.value)">
+      <option value="">Align</option>
+      <option value="left">Left</option>
+      <option value="center">Center</option>
+      <option value="right">Right</option>
+      <option value="justify">Justify</option>
+    </select>
+
+    <button onclick="document.execCommand('undo')">Undo</button>
+    <button onclick="document.execCommand('redo')">Redo</button>
+  </div>
+
+  <div id="editor" contenteditable="true">
+    Start editing your text here...
+  </div>
+
+  <script>
+    function formatText(command) {
+      document.execCommand(command, false, null);
+    }
+
+    function changeColor(color) {
+      document.execCommand("foreColor", false, color);
+    }
+
+    function alignText(alignType) {
+      document.getElementById("editor").style.textAlign = alignType;
+    }
+  </script>
+
+</body>
+</html>
